@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+
+    <link rel="stylesheet" href="/expanse_tracker/style.css" />
+  </head>
+  <body>
+    <br />
+    
+    <div id="user_and_premium">
+      <h2 id="user"></h2>
+      <button id="logout">log out</button>
+      <button id="buy">buy premium</button>
+      <script defer src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      <h3 id="premiumuser"></h3>
+      <h3 id="totalExpanse"></h3>
+    </div>
+    <div class="container">
+      <form id="my-form">
+        Expense Amt:
+        <input class="col-md-1.5" type="number" id="amt" />
+        Choose Description:
+        <input class="col-md-1.5" type="text" id="des" />
+        Choose Category:
+        <select class="col-md-1.5" name="category" id="category">
+          <option value="travel">travel</option>
+          <option value="movies">movies</option>
+          <option value="hotel">hotel</option>
+          <option value="gaming">gaming</option>
+          <option value="shop">shop</option>
+          <option value="park">park</option>
+          <option value="market">market</option>
+          <option value="roadside">roadside</option>
+        </select>
+        <button type="submit" id="add-expanse">Add Expense</button>
+        
+        <input type="hidden" id="update" value="update" />
+      </form>
+      <div class="show">
+        <div id="premShow">
+        <input type="number" placeholder="0 <= input <= 20 " id="lines" required> 
+        <br>
+        <button id="linesToShow">lines to show</button>
+      </div>
+        <br>
+        <button id="showAll">show all expanses</button>
+      </div>
+       
+     
+      <!-- <div class="expanses"> -->
+        <ul id="users"></ul>
+      <!-- </div> -->
+    </div>
+    <div id="lead">
+      <button id="showLead" value="off">Show Leaderboard</button>
+      <ul id="ldrboard"></ul>
+      <button id="downloadFile" >download expanses</button>
+      <ul id="downloaded"></ul>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/expanse_tracker/expanse_tracker.js"></script>
+    <script src="/expanse_tracker/razorpay.js"></script>
+    
+  </body>
+</html>

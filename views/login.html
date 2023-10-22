@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/login/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login here</h1>
+      <form id="myform">
+        <label>Email id</label>
+        <input type="email" placeholder="email id" id="mailId" required />
+        <label>Password</label>
+        <input type="password" placeholder="Password" id="psw" required />
+        
+        <button type="submit" id="btn" >login</button>
+        
+        <p>if forget password <a href="/forget-password">click here</a></p>
+      </form>
+      <a href="/signup">don't have an account! click here to SignUp</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/login/logindex.js"></script>
+  </body>
+</html>
