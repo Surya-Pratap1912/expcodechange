@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>chitchat</title>
+
+    <!-- <link rel="stylesheet" href="../public/dashboard/style.css" /> -->
+    <!-- <link rel="stylesheet" href="../public/dashboard/style.css" /> -->
+    <link rel="stylesheet" href="/dashboard/style.css" />
+  </head>
+  <body>
+    <br />
+    <h2 id="logoImage">ChitChat</h2>
+    <!-- <img src="/src/lg5.png" alt="logo.png" id="logoImage" /> -->
+    <div class="nav">
+      <div id="user-info">
+        <h3 id="user-name">user-name</h3>
+        <button id="logout">log out</button>
+        <button id="back">back</button>
+      </div>
+      <div id="for-small-size">
+        <button>groupn</button>
+        <button>chat</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="contacts">
+        <form id="group-form">
+          <input
+            type="text"
+            name="group-name"
+            placeholder="enter group name"
+            required
+          />
+          <button type="submit" id="create-group">create group</button>
+        </form>
+        <div class="groups scroll" id="groups">
+          <!-- <div class="contact-row">
+            <div id="one" class="contact">
+              <img src="/src/grp.svg" alt="" />
+              <h4>group A</h4>
+            </div>
+            <button type="button" id="delete-group">delete</button>
+          </div> -->
+          
+        </div>
+      </div>
+
+      <div class="group" id="group">
+        <h4 id="group-name"></h4>
+        <form id="add-user-form">
+          <input
+            type="text"
+            name="user-name"
+            placeholder="enter existing user name"
+            required
+          />
+          <button type="submit" id="add-user">add</button>
+        </form>
+        <p id="add-user-log">jhow</p>
+        <div class="users scroll" id="users">
+          <!-- <div id="one" class="user">
+            <img src="/src/user.svg" alt="" />
+            <h4>group A</h4>
+            <button>remove</button>
+            <h3>admin</h3>
+          </div>
+          <div id="one" class="user">
+            <img src="/src/user.svg" alt="" />
+            <h4>group A</h4>
+            <button>remove</button>
+          </div> -->
+        </div>
+        <!-- <button type="button" id="delete-group">delete group</button> -->
+      </div>
+
+      <div class="chat-window">
+        <div id="chats" name="#">
+          <div class="container scroll" id="container">
+            <!-- <div class="msg msg1">
+              <img src="/src/balloon.jpg" alt="fileName" />
+            </div> -->
+
+            <!--    <div class="msg msg2">
+          <p>hekjjjkkkkkkkkkkhhhkkkkkkkkkkkjkkkkkkkkkkkkkkkjjjjjjjjjjjjjjjjkkkkkkkkkkkkkkkkkkkkkkky</p>
+        </div>
+  
+        <h6>user joined + time </h6>
+        <h6>time  </h6>
+        <div class="msg msg1">
+          
+          <h5>user-name</h5>
+          <p>hekjjjjjkkkkkkkkkkkkkkkkkkkkkkky</p>
+        </div>
+        <h6>time</h6>
+        <h6>user left + time</h6>
+        <h1>starts here</h1> -->
+          </div>
+          <form id="send">
+            <div class="send">
+              <input type="text" id="input-messege" autofocus />
+              <input type="file" id="media" />
+
+              <button type="button" id="mediabtn">&#9650;</button>
+              <button type="submit" id="btn">&#10148;</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- media show up -->
+    <!-- Background container for blurring -->
+    <div id="background-container"></div>
+
+    <!-- Pop-up container -->
+    <div id="popup-container">
+      <span id="close-popup-btn">&times;</span>
+      <span id="download-btn">&#8659;</span>
+      <!-- background image with background -no repeat , centre, color transparent, size: contain -->
+    </div>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+    ></script>
+    <script src="http://localhost:10000/socket.io/socket.io.js"></script>
+    <script src="/dashboard/dashboard.js"></script>
+  </body>
+</html>
