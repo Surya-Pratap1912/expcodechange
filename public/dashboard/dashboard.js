@@ -40,7 +40,7 @@ socket.on("error", (err) => {
 });
 
 socket.on("mms", (data) => {
-  // console.log(data);
+  console.log(data);
   const { fileUrl, fileName, type, sentBy, time, groupName } = data;
   const group = sessionStorage.getItem("group");
   if (group.split(" ")[0] == "opened"){
@@ -76,7 +76,7 @@ socket.on("user-removed", (usr, grp) => {
     back.click();
   } else {
     // document.getElementById(usr).remove();
-    // console.log("user-r");
+    console.log("user-r");
     printGroupUsers(grp);
 
   }
@@ -91,7 +91,7 @@ socket.on("received-msg", (msg) => {
     messeges[msg.groupName].push(msg);
   }
 
-  // console.log(messeges);
+  console.log(messeges);
   const group = sessionStorage.getItem("group");
   if (group.split(" ")[0] == "opened") {
     //open group
@@ -115,11 +115,11 @@ socket.on("user-connected", () => {
 });
 
 const token = sessionStorage.getItem("token");
-// console.log(token);
+console.log(token);
 
 document.getElementById("logout").addEventListener("click", () => {
   axios
-    .get(`http://54.226.18.204:10005/logout`, {
+    .get(`http://54.226.18.204:10000/logout`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((resp) => {
@@ -130,7 +130,7 @@ document.getElementById("logout").addEventListener("click", () => {
         sessionStorage.removeItem("show");
         window.location.href = "/login";
         // console.log("resp", resp);
-        // console.log("redirected to login after logout");
+        console.log("redirected to login after logout");
       }
     })
     .catch((err) => {
@@ -160,15 +160,15 @@ window.addEventListener("DOMContentLoaded", () => {
 async function print() {
   try {
     const group = sessionStorage.getItem("group");
-    // console.log(group);
+    console.log(group);
     const res = await axios
-      .get("http://54.226.18.204:10005/get-contacts", {
+      .get("http://54.226.18.204:10000/get-contacts", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         document.getElementById("user-name").innerText = res.data.loggedUser;
         //open dashboard
-        // console.log("res data ", res.data);
+        console.log("res data ", res.data);
 
         const user = res.data.userName;
 
@@ -183,14 +183,14 @@ async function print() {
       chats.style.display = "flex";
       chats.style.visibility = "visible";
       await axios
-        .get(`http://54.226.18.204:10005/get-messeges`, {
+        .get(`http://54.226.18.204:10000/get-messeges`, {
           params: { name: group.split(" ")[1] },
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           let length = sessionStorage.getItem("group-users");
-          // console.log("length", length);
+          console.log("length", length);
           res.data.msgs.forEach((msg) => {
             // sentBy, text, time, type,groupName, length
             printMsg(
@@ -321,19 +321,19 @@ const groupForm = document.getElementById("group-form");
 groupForm.addEventListener("submit", async (e) => {
   try {
     e.preventDefault();
-    // console.log("in func");
+    console.log("in func");
     const groupName = e.target[0].value;
     // console.log(e.target[0].value);
     await axios
       .post(
-        "http://54.226.18.204:10005/create-group",
-        { groupName },
+        "http://54.226.18.204:10000/create-group",
+        { groupName: groupName.trim() },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       )
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         e.target[0].value = "";
         socket.emit("group-created", loggedUser, groupName);
       });
@@ -344,7 +344,7 @@ groupForm.addEventListener("submit", async (e) => {
 });
 
 function printGroup(name) {
-  // console.log(name);
+  console.log(name);
   const groups = document.getElementById("groups");
   const contactRow = document.createElement("div");
   const contact = document.createElement("div");
@@ -353,7 +353,7 @@ function printGroup(name) {
   const deleteGroup = document.createElement("button");
   contactRow.className = "contact-row";
   groupName.innerText = `${name}`;
-  // console.log(groupName);
+  console.log(groupName);
   icon.src = "/src/grp.svg";
   contact.className = "contact";
   contact.appendChild(icon);
@@ -388,12 +388,12 @@ function printGroup(name) {
 
     while (container.firstChild && !container.lastChild.remove());
     await axios
-      .get(`http://54.226.18.204:10005/get-messeges`, {
+      .get(`http://54.226.18.204:10000/get-messeges`, {
         params: { name },
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        // console.log("res for msgs", res);
+        console.log("res for msgs", res);
         let length = sessionStorage.getItem("group-users");
         res.data.msgs.forEach((msg) => {
           printMsg(
@@ -409,18 +409,27 @@ function printGroup(name) {
             );
         });
       });
-    
+    // if (messeges[name]) {
+    //   messeges[name].forEach((msg) => {
+    //     printMsg(
+    //       { sentBy: msg.sentBy, text: msg.msg, time: msg.time, type: "text" },
+    //       loggedUser
+    //     );
+    //   });
+    // }
+
+    // console.log(chats.name,'this')
   });
 
   deleteGroup.addEventListener("click", async (e) => {
     e.preventDefault();
-    const resp = await axios.delete(`http://54.226.18.204:10005/delete-group`, {
+    const resp = await axios.delete(`http://54.226.18.204:10000/delete-group`, {
       params: { name },
       headers: { Authorization: `Bearer ${token}` },
     });
     if (resp.status == 200) {
       contactRow.remove();
-      // console.log("delete group", resp);
+      console.log("delete group", resp);
       // socket.emit('group-deleted',{grp: name});
     }
   });
@@ -429,7 +438,7 @@ function printGroup(name) {
 var c = 0;
 
 async function printGroupUsers(groupName) {
-  // console.log(c++);
+  console.log(c++);
   const contacts = document.getElementsByClassName("contacts");
   const group = document.getElementsByClassName("group");
   document.getElementById("group-name").innerText = groupName;
@@ -455,11 +464,11 @@ async function printGroupUsers(groupName) {
   while (users.firstChild && !users.lastChild.remove());
 
   await axios
-    .get("http://54.226.18.204:10005/get-users", {
+    .get("http://54.226.18.204:10000/get-users", {
       headers: { Authorization: `Bearer ${token}`, group: groupName },
     })
     .then((res) => {
-      // console.log("get - users ", res.data);
+      console.log("get - users ", res.data);
       sessionStorage.setItem("group-users", res.data.users.length);
       res.data.users.forEach((groupUser) => {
         printUser(groupUser, res.data.admin, groupName);
@@ -510,7 +519,7 @@ function printUser(groupUser, adm, groupName) {
 
   remove.addEventListener("click", async (e) => {
     e.preventDefault();
-    axios.delete(`http://54.226.18.204:10005/remove-user`, {
+    axios.delete(`http://54.226.18.204:10000/remove-user`, {
       params: { groupName, groupUser },
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -541,16 +550,16 @@ addUserForm.addEventListener("submit", async (add) => {
     add.preventDefault();
     const addUser = add.target[0].value;
     const groupName = document.getElementById("group-name").innerText;
-    // console.log(addUser, "user", groupName);
+    console.log(addUser, "user", groupName);
     const response = await axios.post(
-      "http://54.226.18.204:10005/group/add-user",
+      "http://54.226.18.204:10000/group/add-user",
       { groupName, addUser },
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
 
-    // console.log(response);
+    console.log(response);
 
     add.target[0].value = "";
 
@@ -586,13 +595,13 @@ function send(e) {
   const groupName = sessionStorage.getItem("group").split(" ")[1];
   const text = document.getElementById("input-messege");
 
-  // console.log(text.value);
+  console.log(text.value);
   // obj = {
   //   msg,
   // };
   if (text.value != "") {
     const time = new Date().toString();
-    // console.log(time, text.value);
+    console.log(time, text.value);
     const msg = {
       msg: text.value,
       sentBy: loggedUser,
@@ -613,11 +622,11 @@ function send(e) {
       messeges[msg.groupName].push(msg);
     }
 
-    // console.log(messeges);
+    console.log(messeges);
   }
 
   // axios
-  //   .post("http://54.226.18.204:10005/send-messege", obj, {
+  //   .post("http://54.226.18.204:10000/send-messege", obj, {
   //     headers: { Authorization: `Bearer ${token}` },
   //   })
   //   .then((result) => {
@@ -637,7 +646,7 @@ mediabtn.addEventListener("click", () => {
 });
 
 media.onchange = function (e) {
-  // console.log(e);
+  console.log(e);
   var file = e.target.files[0];
   if(file){
   var reader = new FileReader();
@@ -647,7 +656,7 @@ media.onchange = function (e) {
   reader.onload = function (loadEvent) {
     var buffer = new Uint8Array(loadEvent.target.result);
     var type = file.type;
-    // console.log("hei bfr", buffer, type);
+    console.log("hei bfr", buffer, type);
     socket.emit("mms", {
       fileName: file.name,
       buffer,
@@ -657,7 +666,7 @@ media.onchange = function (e) {
       groupName,
     });
   };
-  // console.log('sending media');
+  console.log('sending media');
   const fileUrl = URL.createObjectURL(file);
   printMsg(
     {

@@ -5,23 +5,23 @@ const form = document.getElementById("myform");
 form.addEventListener("submit", (e) => {
   // console.log('i m in')
   e.preventDefault();
-  //console.log(e);
+  console.log(e);
 
   const mail = document.getElementById("mailId").value;
   const password = document.getElementById("psw").value;
 
-  //console.log("working");
+  console.log("working");
 
   const user = {
    
     mail,
     password,
   };
- // console.log(user);
+  console.log(user);
   axios
-    .post("http://54.226.18.204:10005/users/login", user)
+    .post("http://54.226.18.204:10000/users/login", user)
     .then((res) => {
-     // console.log(res.data);
+      console.log(res.data);
       sessionStorage.setItem('token', res.data.token);
       sessionStorage.setItem('loggedInUser', res.data.userName);
       sessionStorage.setItem('show','off');

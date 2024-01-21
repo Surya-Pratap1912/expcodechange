@@ -8,7 +8,7 @@ form.addEventListener("submit", (e) => {
   const mail = document.getElementById("mailId").value;
   const password = document.getElementById("psw").value;
   const cnfPassword = document.getElementById("cnf-psw").value;
-  //console.log("working");
+  console.log("working");
 
   if (password !== cnfPassword) {
     const p = document.createElement("p");
@@ -29,16 +29,16 @@ form.addEventListener("submit", (e) => {
     const para = document.getElementById("para");
     if (para) form.removeChild(para);
     const user = {
-      name,
+      name:name.trim(),
       phone,
       mail,
       password,
       
     };
-    //console.log(user);
-    axios.post('http://54.226.18.204:10005/users/signUp',user)
+    console.log(user);
+    axios.post('http://54.226.18.204:10000/users/signUp',user)
     .then(res =>{
-     // console.log(res);
+      console.log(res);
       const note = document.getElementById('sign-note');
         note.style.display = 'block';
         note.style.color = 'white';
