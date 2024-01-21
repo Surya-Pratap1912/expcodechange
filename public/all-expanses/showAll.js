@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function printScreen() {
   axios
-    .get("http://54.226.18.204:10000/get-expanse", {
+    .get("http://54.226.18.204:11000/get-expanse", {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
@@ -81,7 +81,7 @@ function printList(obj) {
 
   btn.addEventListener("click", (e) => {
     axios
-      .delete(`http://54.226.18.204:10000/delete-expanse/${obj.id}`, {
+      .delete(`http://54.226.18.204:11000/delete-expanse/${obj.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -109,7 +109,7 @@ dwn.addEventListener("click", async (e) => {
   // p.style.fontSize = '40px';
 
   axios
-    .get("http://54.226.18.204:10000/dowload/download-expanse", {
+    .get("http://54.226.18.204:11000/dowload/download-expanse", {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((result) => {
@@ -147,7 +147,7 @@ dwn.addEventListener("click", async (e) => {
 // })
 
 document.getElementById('downloadAsPdf').addEventListener('click', async () => {
-  const response = await axios.get("http://54.226.18.204:10000/generate-pdf", {
+  const response = await axios.get("http://54.226.18.204:11000/generate-pdf", {
     headers: { Authorization: `Bearer ${token}` },
   })
   

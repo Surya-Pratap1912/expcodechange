@@ -41,7 +41,7 @@ function onsubmit(e) {
     cat,
   };
   axios
-    .post("http://54.226.18.204:10000/add-expanse", obj, {
+    .post("http://54.226.18.204:11000/add-expanse", obj, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((result) => {
@@ -81,7 +81,7 @@ showAll.addEventListener('click', async (e)=>{
 
 function print() {
   axios
-    .get("http://54.226.18.204:10000/get-expanse", {
+    .get("http://54.226.18.204:11000/get-expanse", {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
@@ -174,7 +174,7 @@ function printList(obj) {
   btn.addEventListener("click", (e) => {
     console.log('sobj id ', obj._id);
     axios
-      .delete(`http://54.226.18.204:10000/delete-expanse/${obj._id}`, {
+      .delete(`http://54.226.18.204:11000/delete-expanse/${obj._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -210,7 +210,7 @@ function printList(obj) {
       };
 
       axios
-        .put(`http://54.226.18.204:10000/update-expanse/${obj._id}`, updData, {
+        .put(`http://54.226.18.204:11000/update-expanse/${obj._id}`, updData, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
@@ -228,7 +228,7 @@ function printList(obj) {
 async function printLeads() {
   try {
     const Leaderboard = await axios.get(
-      "http://54.226.18.204:10000/premium/showLeaderBoard",
+      "http://54.226.18.204:11000/premium/showLeaderBoard",
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
@@ -289,7 +289,7 @@ dwn.addEventListener('click', async (e) =>{
 
 
   axios
-    .get("http://54.226.18.204:10000/dowload/download-expanse", {
+    .get("http://54.226.18.204:11000/dowload/download-expanse", {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((result) => {

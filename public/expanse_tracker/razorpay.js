@@ -7,7 +7,7 @@ document.getElementById("buy").onclick = async function (e) {
     try {
       // Send an asynchronous GET request to retrieve premium membership information from the specified URL
       const response = await axios.get(
-        "http://54.226.18.204:10000/purhase/premuiumMembership",
+        "http://54.226.18.204:11000/purhase/premuiumMembership",
         { headers: { Authorization: `Bearer ${token}` } }
       );
   
@@ -21,7 +21,7 @@ document.getElementById("buy").onclick = async function (e) {
         // Define a handler function for successful payment
         handler: async function (response) {
           const data1 = await axios.post(
-            "http://54.226.18.204:10000/purchase/updatetransectionstatus",
+            "http://54.226.18.204:11000/purchase/updatetransectionstatus",
             {
               status: "SUCCESSFUL",
               order_id: options.order_id,
@@ -47,7 +47,7 @@ document.getElementById("buy").onclick = async function (e) {
       // Define a handler for the "payment.failed" event
       razor.on("payment.failed", async function (response) {
         await axios.post(
-          "http://54.226.18.204:10000/purchase/updatetransectionstatus",
+          "http://54.226.18.204:11000/purchase/updatetransectionstatus",
           {
             status: "failed",
             order_id: options.order_id,

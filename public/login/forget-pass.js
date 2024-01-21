@@ -12,7 +12,7 @@ form.addEventListener("submit", (e) => {
   console.log("working");
 
   axios
-    .post("http://54.226.18.204:10000/password/forget-password", { mail })
+    .post("http://54.226.18.204:11000/password/forget-password", { mail })
     .then((res) => {
       console.log("res.data from forget pass ", res.data);
       alert(res.data.message);
