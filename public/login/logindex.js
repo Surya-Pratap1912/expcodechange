@@ -1,8 +1,6 @@
 const form = document.getElementById("myform");
-// document.gete
 
 form.addEventListener("submit", (e) => {
-  // console.log('i m in')
   e.preventDefault();
   console.log(e);
 

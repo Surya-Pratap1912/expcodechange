@@ -1,5 +1,4 @@
 const form = document.getElementById("myform");
-// document.gete
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -22,7 +21,6 @@ form.addEventListener("submit", (e) => {
     document.getElementById("mailId").value = mail;
     document.getElementById("psw").value = "";
     document.getElementById("cnf-psw").value = "";
-
   } else {
     const para = document.getElementById("para");
     if (para) form.removeChild(para);
@@ -30,18 +28,15 @@ form.addEventListener("submit", (e) => {
       name,
       mail,
       password,
-      
     };
-    // console.log(user);
-    axios.post('http://54.226.18.204:11000/users/signUp',user)
-    .then(res =>{
-      // console.log(res);
-      window.alert(res.data.message);
-      location.reload();
-    })
-    .catch(err=>{
-      console.log(err);
-    })
+    axios
+      .post("http://54.226.18.204:11000/users/signUp", user)
+      .then((res) => {
+        window.alert(res.data.message);
+        location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 });
-

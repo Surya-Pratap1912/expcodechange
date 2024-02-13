@@ -1,14 +1,10 @@
 const form = document.getElementById("myform");
-// document.gete
 
 form.addEventListener("submit", (e) => {
-  // console.log('i m in')
   e.preventDefault();
   console.log(e);
 
   const mail = document.getElementById("mailId").value;
-  //   const password = document.getElementById("psw").value;
-
   console.log("working");
 
   axios
@@ -20,6 +16,5 @@ form.addEventListener("submit", (e) => {
     })
     .catch((err) => {
       console.log(err);
-      // alert(res.data.message);
     });
 });

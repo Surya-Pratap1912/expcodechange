@@ -1,18 +1,12 @@
-
 const addExpanse = document.querySelector("#add-expanse");
 const amt = document.querySelector("#amt");
 const des = document.querySelector("#des");
 const cat = document.querySelector("category");
 const userlist = document.querySelector("#users");
-
-
-
-
 const token = localStorage.getItem("token");
-// console.log(token);
 
 document.getElementById("logout").addEventListener("click", () => {
-  localStorage.removeItem('token');
+  localStorage.removeItem("token");
   location.href = "/login";
 });
 
@@ -54,28 +48,25 @@ function onsubmit(e) {
 
 //maxlines to show
 
-const linesToShow = document.getElementById('linesToShow');
+const linesToShow = document.getElementById("linesToShow");
 
-linesToShow.addEventListener('click', async (e )=>{
+linesToShow.addEventListener("click", async (e) => {
   e.preventDefault();
-  const lines = document.getElementById('lines').value;
-  if(lines)
-  {
-    localStorage.setItem('lines',lines);
+  const lines = document.getElementById("lines").value;
+  if (lines) {
+    localStorage.setItem("lines", lines);
     console.log("lines ", lines);
     location.reload();
   }
-})
+});
 
 //show all expanses
 
-const showAll = document.getElementById('showAll');
+const showAll = document.getElementById("showAll");
 
-showAll.addEventListener('click', async (e)=>{
-  location.href = '/showAll.html';
-})
-
-
+showAll.addEventListener("click", async (e) => {
+  location.href = "/showAll.html";
+});
 
 //                              printing data on the screen
 
@@ -85,62 +76,57 @@ function print() {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
-      console.log("res  data  ",response.data);
+      console.log("res  data  ", response.data);
       document.getElementById("user").innerHTML = response.data.userName;
 
-      let exp_s=-1;
-      var arr 
-      var exp_e=0;
+      let exp_s = -1;
+      var arr;
+      var exp_e = 0;
       if (response.data.isPremium) {
         document.getElementById("buy").style.visibility = "hidden";
         document.getElementById("showLead").style.visibility = "visible";
-        document.getElementById("totalExpanse").innerText = `total Expanse ${response.data.totalExpanse}`;
-        document.getElementById('premShow').style.visibility = "visible";
+        document.getElementById(
+          "totalExpanse"
+        ).innerText = `total Expanse ${response.data.totalExpanse}`;
+        document.getElementById("premShow").style.visibility = "visible";
 
-        exp_s=response.data.exp.length ;
-       arr = response.data.exp;
-       mxLines=localStorage.getItem('lines');
-       if(+mxLines >= (+exp_s) )
-       {
-        exp_e =0;
-        exp_e= +exp_e;
-       }
-       else{
-        exp_e = +exp_s - +mxLines;
-       }
+        exp_s = response.data.arr.length;
+        arr = response.data.arr;
+        mxLines = localStorage.getItem("lines");
+        if (+mxLines >= +exp_s) {
+          exp_e = 0;
+          exp_e = +exp_e;
+        } else {
+          exp_e = +exp_s - +mxLines;
+        }
 
         printLeads();
-        // printUrls();
         console.log(response.data);
-        const downloaded = document.getElementById('downloaded');
-        let url= response.data.urls ; 
+        const downloaded = document.getElementById("downloaded");
+        let url = response.data.urls;
         let n = response.data.urls.length;
-        if(n > 0)
-        {
-          for(let i=n-1;i>=0 ;i--)
-          {
-            const li = document.createElement('li'); 
-            const a = document.createElement('a');
-            a.href = url[i].fileUrl
+        if (n > 0) {
+          for (let i = n - 1; i >= 0; i--) {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = url[i].fileUrl;
             console.log(url[i].fileUrl);
-            
-            a.innerText = `downloaded ${n-i}`;
+
+            a.innerText = `downloaded ${n - i}`;
             li.appendChild(a);
             downloaded.appendChild(li);
           }
         }
         document.getElementById("premiumuser").innerText =
           "you are a premium user";
-      }
-      else {
+      } else {
         exp_s = response.data.arr.length;
-         arr = response.data.arr;
-         exp_e=0;
-         exp_e = +exp_e;
+        arr = response.data.arr;
+        exp_e = 0;
+        exp_e = +exp_e;
       }
-      console.log(arr, exp_s,exp_e);
-      for(let i = +exp_s - 1 ; i>=exp_e ; i--)
-      {
+      console.log(arr, exp_s, exp_e);
+      for (let i = +exp_s - 1; i >= exp_e; i--) {
         printList(arr[i]);
       }
     });
@@ -172,7 +158,7 @@ function printList(obj) {
   userlist.appendChild(li);
 
   btn.addEventListener("click", (e) => {
-    console.log('sobj id ', obj._id);
+    console.log("sobj id ", obj._id);
     axios
       .delete(`http://54.226.18.204:11000/delete-expanse/${obj._id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -186,8 +172,6 @@ function printList(obj) {
   });
 
   edit.addEventListener("click", (e) => {
-    // axios.post(`http://54.226.18.204:3005/delete-data/${obj._id}`);
-
     document.getElementById("amt").value = `${obj.amt}`;
     document.getElementById("des").value = `${obj.des}`;
     document.getElementById("category").value = `${obj.cat}`;
@@ -200,9 +184,6 @@ function printList(obj) {
       const amt = document.getElementById("amt").value;
       const des = document.getElementById("des").value;
       const cat = document.getElementById("category").value;
-
-      // console.log(amt, des, cat);
-
       const updData = {
         amt,
         des,
@@ -232,10 +213,6 @@ async function printLeads() {
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    // console.log("lead -->>  ", Leaderboard);
-    // const leads = document.getElementById('ldrboard');
-
-    // leads.removeChild(document.getElementById(""));
     Leaderboard.data.forEach((arr) => {
       console.log(arr);
       printLine(arr);
@@ -259,50 +236,38 @@ const showLead = document.getElementById("showLead");
 
 showLead.addEventListener("click", async (e) => {
   e.preventDefault();
-  const show = localStorage.getItem('show');
-  if(show == 'off'){
-  document.getElementById("ldrboard").style.visibility = "visible";
-  localStorage.setItem('show','on');
-  showLead.innerText='Hide Leaderboard';
-  }
-  else{
+  const show = localStorage.getItem("show");
+  if (show == "off") {
+    document.getElementById("ldrboard").style.visibility = "visible";
+    localStorage.setItem("show", "on");
+    showLead.innerText = "Hide Leaderboard";
+  } else {
     document.getElementById("ldrboard").style.visibility = "hidden";
-    localStorage.setItem('show','off');
-  showLead.innerText='Show Leaderboard';
+    localStorage.setItem("show", "off");
+    showLead.innerText = "Show Leaderboard";
   }
 });
 
-
 //                                  download file
 
+const dwn = document.getElementById("downloadFile");
 
-const dwn = document.getElementById('downloadFile');
-
-dwn.addEventListener('click', async (e) =>{
+dwn.addEventListener("click", async (e) => {
   e.preventDefault();
   console.log("dwn 1");
-  // const p =document.createElement('p')
-  // p.appendChild(document.createTextNode('clicked'));
-  // dwn.parentElement.appendChild(p);
-  // p.style.color = 'red';
-  // p.style.fontSize = '40px';
-
-
   axios
     .get("http://54.226.18.204:11000/dowload/download-expanse", {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((result) => {
-      console.log("result ",result);
-      if(result.status== 200)
-      {
-        var a = document.createElement('a');
+      console.log("result ", result);
+      if (result.status == 200) {
+        var a = document.createElement("a");
         a.href = result.data.fileUrl;
-        a.download = 'myexpanse.csv';
+        a.download = "myexpanse.csv";
         a.click();
       }
       console.log(result);
     })
-    .catch((err) => console.log("err in dwn",err));
-  
-})
+    .catch((err) => console.log("err in dwn", err));
+});
