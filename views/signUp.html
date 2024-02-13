@@ -4,30 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up</title>
-    <link rel="stylesheet" href="/signup/styles.css" />
+    <link rel="stylesheet" href="/sign_up/styles.css" />
   </head>
   <body>
-    <br />
-    <h2 id="logoImage">ChitChat</h2>
     <div class="container">
       <h1>Sign up here</h1>
       <form id="myform">
         <label>Your name</label>
         <input type="text" placeholder="user name" id="userName" required />
-        <label>Phone number</label>
-        <input type="number" placeholder="phone number" id="phoneNumber" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
         <label>Email id</label>
         <input type="email" placeholder="email id" id="mailId" required />
         <label>Password</label>
         <input type="password" placeholder="Password" id="psw" required />
         <input type="password" placeholder="Confirm Password" id="cnf-psw" required />
         <button type="submit" id="btn" >sign up</button>
-        <p id="sign-note">login-note</p>
-
       </form>
       <a href="/login">Already a user! click here to login</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/signup/signup.js"></script>
+    <script src="/sign_up/signindex.js"></script>
   </body>
 </html>
